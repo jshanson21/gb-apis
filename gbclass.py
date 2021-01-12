@@ -1,6 +1,5 @@
 import urllib.request, urllib.parse, urllib.error
 import json
-#import re
 
 #Initiates a parameters dictionary to be used for the urls that has the parameters
 #that every function would use; is called by the functions below
@@ -11,8 +10,19 @@ def initParams() :
     params['format'] = 'json'
     return(params)
 
+#Passes in a dictionary with a set of filters and a dictionary with a set of parameters and adds the filters into the parameters dictionary.
+def addFilters(filters, params) :
+    params['filter'] = ''
+    for field in filters :
+        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    return params
+
+#Takes in the url and list of parameters from the other functions below and
+#retrives the data from the REST API response.  The entire JSON object is returned
+#as an object.
 def loadData(url, params, errorMessage) :
     url = url + urllib.parse.urlencode(params)
+    print(url)
     data = urllib.request.urlopen(url).read()
     try :
         jsdata = json.loads(data)
@@ -53,9 +63,7 @@ def getAccessory(key) :
 def getAccessories(filters) :
     url = 'https://www.giantbomb.com/api/accessories/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Accessories===')
 
 #Returns the json object for a character in the wiki based on the key (a string)
@@ -69,9 +77,7 @@ def getCharacter(key) :
 def getCharacters(filters) :
     url = 'https://www.giantbomb.com/api/characters/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Characters===')
 
 
@@ -87,9 +93,7 @@ def getChat(key) :
 def getChats(filters) :
     url = 'https://www.giantbomb.com/api/chats/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Chats===')
 
 #Returns the json object for a company in the wiki based on the key (a string)
@@ -103,9 +107,7 @@ def getCompany(key) :
 def getCompanies(filters) :
     url = 'https://www.giantbomb.com/api/companies/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Companies===')
 
 
@@ -120,9 +122,7 @@ def getConcept(key) :
 def getConcepts(filters) :
     url = 'https://www.giantbomb.com/api/concepts/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Concepts===')
 
 
@@ -137,9 +137,7 @@ def getDLC(key) :
 def getDLCs(filters) :
     url = 'https://www.giantbomb.com/api/dlcs/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any DLCs===')
 
 
@@ -154,9 +152,7 @@ def getFranchise(key) :
 def getFranchises(filters) :
     url = 'https://www.giantbomb.com/api/franchises/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Franchises===')
 
 
@@ -171,9 +167,7 @@ def getGame(key) :
 def getGames(filters) :
     url = 'https://www.giantbomb.com/api/games/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Games===')
 
 
@@ -189,9 +183,7 @@ def getGameRating(key) :
 def getGameRatings(filters) :
     url = 'https://www.giantbomb.com/api/game_ratings/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Game Ratings===')
 
 
@@ -206,9 +198,7 @@ def getGenre(key) :
 def getGenres(filters) :
     url = 'https://www.giantbomb.com/api/genres/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Genres===')
 
 
@@ -234,9 +224,7 @@ def getLocation(key) :
 def getLocations(filters) :
     url = 'https://www.giantbomb.com/api/locations/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Locations===')
 
 
@@ -252,9 +240,7 @@ def getObject(key) :
 def getObjects(filters) :
     url = 'https://www.giantbomb.com/api/objects/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Objects===')
 
 
@@ -269,9 +255,7 @@ def getPerson(key) :
 def getPeople(filters) :
     url = 'https://www.giantbomb.com/api/people/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any People===')
 
 
@@ -287,9 +271,7 @@ def getPlatform(key) :
 def getPlatforms(filters) :
     url = 'https://www.giantbomb.com/api/platforms/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Platforms===')
 
 
@@ -304,9 +286,7 @@ def getPromo(key) :
 def getPromos(filters) :
     url = 'https://www.giantbomb.com/api/promos/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Promos===')
 
 
@@ -322,9 +302,7 @@ def getRatingBoard(key) :
 def getRatingBoards(filters) :
     url = 'https://www.giantbomb.com/api/rating_boards/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Rating Boards===')
 
 
@@ -340,9 +318,7 @@ def getRegion(key) :
 def getRegions(filters) :
     url = 'https://www.giantbomb.com/api/regions/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Regions===')
 
 
@@ -357,9 +333,7 @@ def getRelease(key) :
 def getReleases(filters) :
     url = 'https://www.giantbomb.com/api/releases/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Releases===')
 
 
@@ -374,9 +348,7 @@ def getReview(key) :
 def getReviews(filters) :
     url = 'https://www.giantbomb.com/api/reviews/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Reviews===')
 
 
@@ -400,9 +372,7 @@ def getTheme(key) :
 def getThemes(filters) :
     url = 'https://www.giantbomb.com/api/themes/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Themes===')
 
 #Returns the json object containing all types; types are the classifications of content
@@ -411,9 +381,7 @@ def getThemes(filters) :
 def getTypes(filters) :
     url = 'https://www.giantbomb.com/api/types/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Types===')
 
 
@@ -428,9 +396,7 @@ def getUserReview(key) :
 def getUserReviews(filters) :
     url = 'https://www.giantbomb.com/api/user_reviews/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any User Reviews===')
 
 
@@ -445,9 +411,7 @@ def getVideo(key) :
 def getVideos(filters) :
     url = 'https://www.giantbomb.com/api/videos/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Videos===')
 
 
@@ -462,9 +426,7 @@ def getVideoCategory(key) :
 def getVideoCategories(filters) :
     url = 'https://www.giantbomb.com/api/video_categories/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Video Categories===')
 
 
@@ -480,9 +442,7 @@ def getVideoShow(key) :
 def getVideoShows(filters) :
     url = 'https://www.giantbomb.com/api/video_shows/?'
     params = initParams()
-    params['filter'] = ''
-    for field in filters :
-        params['filter'] = params['filter'] + field + ':' + filters[field] + ','
+    params = addFilters(filters, params)
     return loadData(url, params, '===Could Not Retrieve Any Video Shows===')
 
 
@@ -496,7 +456,7 @@ def getCurrentLive() :
         jsdata = json.loads(data)
     except :
         jsdata = None
-    if jsdata is None or jsdata["success"] != 1 :
+    if jsdata is None or jsdata["success"] != 1 or jsdata["video"] is None:
         print('===No Live Shows Running Now===')
     return jsdata
 
@@ -535,7 +495,6 @@ def saveTime(vid_id, saveTime) :
         print('===Could Not Save Time===')
     else :
         print('Time saved successfully.')
-    return jsdata
 
 #Returns the json object containing all saved video times for the API user.
 #The loadData steps are here because the error handling for this call is different
