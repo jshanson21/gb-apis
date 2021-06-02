@@ -3,12 +3,27 @@ import json
 import gbobjects
 import gbcontentfile as cf
 
+
+# Returns the token stored in regToken.txt.  If no token is present,
+# it returns None.
+# This function will mainly be used by gbwiki.py to set the api_key
+# before making API requests (instead of hard-coding the key in the file)
+def getToken() :
+    try : fh = open('regToken.txt', 'r')
+    except : return None
+    tmptext = fh.readline()
+    return tmptext
+
+
 #Initiates a parameters dictionary to be used for the urls that has the parameters
 #that every function would use; is called by the functions below
-#THE API_KEY NEEDS TO BE UPDATED WITH YOUR API KEY
 def initParams() :
     params = dict()
-    params['api_key'] = '6da2f5489cc2a154ca0ea4b461b0376d49d442a4'
+    token = getToken()
+    if token == None :
+        print('===No Token Found===')
+        return None
+    params['api_key'] = token
     params['format'] = 'json'
     return params
 
