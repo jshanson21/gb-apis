@@ -71,7 +71,8 @@ class Company(GBObject):
         self.location_city = jsdata['location_city']
         self.location_country = jsdata['location_country']
         self.location_state = jsdata['location_state']
-        self.locations = jsdata['locations']
+        try : self.locations = jsdata['locations']
+        except : self.locations = None
         self.objects = jsdata['objects']
         self.objects = None
         self.people = jsdata['people']
@@ -153,7 +154,8 @@ class Game(GBObject):
         self.first_appearance_objects = jsdata['first_appearance_objects']
         self.first_appearance_people = jsdata['first_appearance_people']
         self.franchises = jsdata['franchises']
-        self.genres = jsdata['genres']
+        try : self.genres = jsdata['genres']
+        except : self.genres = None
         self.images = jsdata['images']
         self.image_tags = jsdata['image_tags']
         self.killed_characters = jsdata['killed_characters']
@@ -165,17 +167,15 @@ class Game(GBObject):
         self.people = jsdata['people']
         self.platforms = jsdata['platforms']
         self.publishers = jsdata['publishers']
-        self.releases = jsdata['releases']
-        try :
-            self.dlcs = jsdata['dlcs']
-        except :
-            self.dlcs = None
-        try :
-            self.reviews = jsdata['reviews']
-        except :
-            self.reviews = None
+        try : self.releases = jsdata['releases']
+        except : self.releases = None
+        try : self.dlcs = jsdata['dlcs']
+        except : self.dlcs = None
+        try : self.reviews = jsdata['reviews']
+        except : self.reviews = None
         self.similar_games = jsdata['similar_games']
-        self.themes = jsdata['themes']
+        try : self.themes = jsdata['themes']
+        except : self.themes = None
         self.videos = jsdata['videos']
 
 
